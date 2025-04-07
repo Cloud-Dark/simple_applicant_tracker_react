@@ -4,22 +4,34 @@ const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.json')[env];
+require('dotenv').config(); // load .env
 
-const db = {}; // INI HARUS ADA DULUAN
+const db = {}; // HARUS ADA DULUAN
 
-let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
-}
+// koneksi database dari .env
+const sequelize = new Sequelize(
+  process.env.PG_DB,
+  process.env.PG_USER,
+  process.env.PG_PASSWORD,
+  {
+    host: process.env.PG_HOST,
+    port: process.env.PG_PORT,
+    dialect: 'postgres',
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false, // untuk SSL dari aiven
+      },
+    },
+    logging: false, // matikan log query (optional)
+  }
+);
 
+// define ke db object
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-// load semua model
+// load semua model manual
 db.Applicant = require('./applicant')(sequelize, Sequelize.DataTypes);
 
 module.exports = db;
