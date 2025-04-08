@@ -10,6 +10,7 @@ export interface Applicant {
   experience?: number
   location?: string
   photo?: string
+  resume_link?: string;
 }
 
 const API_URL = 'http://localhost:3000/applicants'
