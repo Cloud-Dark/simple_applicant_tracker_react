@@ -99,7 +99,7 @@ const AddApplicantForm: React.FC<AddApplicantFormProps> = ({ onSuccess }) => {
         <h1 className="text-white text-xl font-bold">Applicant Tracker</h1>
       </div>
       
-      <div className="px-6 pb-6">
+      <div className="px-6 pb-6 overflow-y-auto max-h-[calc(100vh-100px)]">
         <h2 className="text-2xl font-bold mb-6">Upload a new candidate application</h2>
         
         <Form {...form}>
