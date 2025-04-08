@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Applicant } from '@/data/applicants';
 import { Button } from '@/components/ui/button';
@@ -10,11 +9,15 @@ import EditApplicantForm from './EditApplicantForm'; // Import komponen baru
 
 interface ApplicantDetailsProps {
   applicant: Applicant | null;
+  onAddApplicant: (applicant: Applicant) => void; // Tambahkan prop ini
+  onUpdateApplicant?: () => void; // Callback ketika applicant berhasil diupdate
+
 }
 
-const ApplicantDetails: React.FC<ApplicantDetailsProps> = ({ applicant }) => {
+const ApplicantDetails: React.FC<ApplicantDetailsProps> = ({ applicant, onAddApplicant }) => {
   const [isAddingApplicant, setIsAddingApplicant] = useState(false);
   const [isEditingApplicant, setIsEditingApplicant] = useState(false);
+
   if (!applicant) {
     return (
       <div className="border rounded-md p-6 bg-white h-full flex flex-col items-center justify-center">
@@ -27,7 +30,10 @@ const ApplicantDetails: React.FC<ApplicantDetailsProps> = ({ applicant }) => {
             </Button>
           </SheetTrigger>
           <SheetContent side="right" className="w-full sm:max-w-3xl p-0">
-            <AddApplicantForm onSuccess={() => setIsAddingApplicant(false)} />
+            <AddApplicantForm 
+              onAddApplicant={onAddApplicant} // Teruskan prop ini
+              onSuccess={() => setIsAddingApplicant(false)} 
+            />
           </SheetContent>
         </Sheet>
       </div>
@@ -43,25 +49,26 @@ const ApplicantDetails: React.FC<ApplicantDetailsProps> = ({ applicant }) => {
       .toUpperCase()
       .substring(0, 2);
   };
+
   const handleScheduleInterview = () => {
     if (!applicant) return;
-  
+
     const title = encodeURIComponent(`Interview with ${applicant.name}`);
     const details = encodeURIComponent(`
-  Name: ${applicant.name}
-  Email: ${applicant.email || '-'}
-  Phone: ${applicant.phone || '-'}
-    
-  Notes: Interview scheduled via Applicant Management System
+      Name: ${applicant.name}
+      Email: ${applicant.email || '-'}
+      Phone: ${applicant.phone || '-'}
+      
+      Notes: Interview scheduled via Applicant Management System
     `);
-  
+
     const location = encodeURIComponent('Online / Google Meet');
-  
+
     const url = `https://calendar.google.com/calendar/u/0/r/eventedit?text=${title}&details=${details}&location=${location}`;
-  
+
     window.open(url, '_blank');
   };
-  
+
   return (
     <div className="border rounded-md p-6 bg-white">
       <div className="mb-4 flex justify-between items-start">
@@ -70,11 +77,6 @@ const ApplicantDetails: React.FC<ApplicantDetailsProps> = ({ applicant }) => {
           <h1 className="text-2xl font-bold">{applicant.name}</h1>
         </div>
         <div className="flex gap-2">
-          <Sheet open={isAddingApplicant} onOpenChange={setIsAddingApplicant}>
-            <SheetContent side="right" className="w-full sm:max-w-3xl p-0">
-              <AddApplicantForm onSuccess={() => setIsAddingApplicant(false)} />
-            </SheetContent>
-          </Sheet>
           <Avatar className="w-24 h-24">
             <AvatarImage src={applicant.resume_link || undefined} alt={applicant.name} />
             <AvatarFallback className="text-2xl">{getInitials(applicant.name)}</AvatarFallback>

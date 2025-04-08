@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Applicant } from '@/data/applicants';
 import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell } from '@/components/ui/table';
@@ -18,6 +17,8 @@ const ApplicantTable: React.FC<ApplicantTableProps> = ({
   currentPage,
   setCurrentPage
 }) => {
+  console.log("Applicants in table:", applicants); // Debugging data
+
   const getStatusClass = (status: string) => {
     switch (status.toLowerCase()) {
       case "accepted":

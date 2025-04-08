@@ -16,6 +16,7 @@ interface ApplicantFiltersProps {
   setSelectedStatus: (status: string) => void;
   searchQuery: string;
   setSearchQuery: (query: string) => void;
+  onAddApplicant: (applicant: any) => void; // Tambahkan prop ini
 }
 
 const ApplicantFilters: React.FC<ApplicantFiltersProps> = ({
@@ -26,7 +27,8 @@ const ApplicantFilters: React.FC<ApplicantFiltersProps> = ({
   selectedStatus,
   setSelectedStatus,
   searchQuery,
-  setSearchQuery
+  setSearchQuery,
+  onAddApplicant // Gunakan prop ini
 }) => {
   const [isAddingApplicant, setIsAddingApplicant] = useState(false);
   const [locations, setLocations] = useState<string[]>([]);
@@ -75,7 +77,10 @@ const ApplicantFilters: React.FC<ApplicantFiltersProps> = ({
             </Button>
           </SheetTrigger>
           <SheetContent side="right" className="w-full sm:max-w-3xl p-0">
-            <AddApplicantForm onSuccess={() => setIsAddingApplicant(false)} />
+            <AddApplicantForm 
+              onAddApplicant={onAddApplicant} // Teruskan prop ini
+              onSuccess={() => setIsAddingApplicant(false)} 
+            />
           </SheetContent>
         </Sheet>
       </div>

@@ -11,78 +11,102 @@ const Index = () => {
   const [selectedStatus, setSelectedStatus] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedApplicantId, setSelectedApplicantId] = useState<number | null>(null);
-  const [currentPage, setCurrentPage] = useState(1);
   const [applicants, setApplicants] = useState<Applicant[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1); // State for pagination
 
   // Fetch applicants from API
   useEffect(() => {
-    const fetchApplicants = async () => {
-      try {
-        setIsLoading(true);
-        
-        let url = 'http://localhost:3000/applicants';
-        const params = new URLSearchParams();
-        
-        if (selectedLocation !== 'All') {
-          params.append('location', selectedLocation);
-        }
-        
-        if (selectedRole !== 'All') {
-          params.append('role', selectedRole);
-        }
-        
-        if (selectedStatus !== 'All') {
-          params.append('status', selectedStatus);
-        }
-        
-        if (params.toString()) {
-          url += `?${params.toString()}`;
-        }
-        
-        const response = await fetch(url);
-        
-        if (!response.ok) {
-          throw new Error(`Error fetching applicants: ${response.statusText}`);
-        }
-        
-        const data = await response.json();
-        
-        // Transform API data to match our Applicant interface
-        const transformedData = data.map((item: any) => ({
-          id: item.id,
-          name: item.candidate_name,
-          email: item.candidate_email,
-          role: item.applied_roles,
-          experience: item.year_of_experience,
-          status: item.application_status,
-          phone: item.phone_number,
-          location: item.location,
-          resume_link: item.resume_link,
-          photo: null,
-        }));
-        
-        setApplicants(transformedData);
-        
-        // If we have applicants and none is selected, select the first one
-        if (transformedData.length > 0 && selectedApplicantId === null) {
-          setSelectedApplicantId(transformedData[0].id);
-        }
-      } catch (error) {
-        console.error('Failed to fetch applicants:', error);
-        toast.error('Failed to load applicants. Please try again later.');
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
     fetchApplicants();
   }, [selectedLocation, selectedRole, selectedStatus]);
+
+  const fetchApplicants = async () => {
+    try {
+      setIsLoading(true);
+
+      let url = 'http://localhost:3000/applicants';
+      const params = new URLSearchParams();
+
+      if (selectedLocation !== 'All') {
+        params.append('location', selectedLocation);
+      }
+
+      if (selectedRole !== 'All') {
+        params.append('role', selectedRole);
+      }
+
+      if (selectedStatus !== 'All') {
+        params.append('status', selectedStatus);
+      }
+
+      if (params.toString()) {
+        url += `?${params.toString()}`;
+      }
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error(`Error fetching applicants: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+
+      // Transform API data to match our Applicant interface
+      const transformedData = data.map((item: any) => ({
+        id: item.id,
+        name: item.candidate_name,
+        email: item.candidate_email,
+        role: item.applied_roles,
+        experience: item.year_of_experience,
+        status: item.application_status,
+        phone: item.phone_number,
+        location: item.location,
+        resume_link: item.resume_link,
+        photo: null,
+      }));
+
+      setApplicants(transformedData); // Update state applicants
+
+      // If we have applicants and none is selected, select the first one
+      if (transformedData.length > 0 && selectedApplicantId === null) {
+        setSelectedApplicantId(transformedData[0].id);
+      }
+    } catch (error) {
+      console.error('Failed to fetch applicants:', error);
+      toast.error('Failed to load applicants. Please try again later.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Handler for adding a new applicant
+  const handleAddApplicant = async (newApplicant: Applicant) => {
+    try {
+      await fetchApplicants(); // Refresh data
+      setSelectedApplicantId(newApplicant.id); // Select the newly added applicant
+    } catch (error) {
+      console.error('Failed to refresh applicants:', error);
+      toast.error('Failed to refresh applicants. Please try again later.');
+    }
+  };
+
+  // Handler for updating an applicant
+  const handleUpdateApplicant = async (updatedApplicant: Applicant) => {
+    try {
+      console.log("Fetching updated applicants...");
+      await fetchApplicants(); // Pastikan fetchApplicants selesai
+      console.log("Applicants fetched successfully.");
+      setSelectedApplicantId(updatedApplicant.id); // Pilih applicant yang diupdate
+    } catch (error) {
+      console.error('Failed to refresh applicants:', error);
+      toast.error('Failed to refresh applicants. Please try again later.');
+    }
+  };
 
   // Filter applicants based on search query
   const filteredApplicants = applicants.filter(app => {
     if (!searchQuery) return true;
-    
+
     const query = searchQuery.toLowerCase();
     return (
       app.name.toLowerCase().includes(query) || 
@@ -105,6 +129,7 @@ const Index = () => {
           setSelectedStatus={setSelectedStatus}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
+          onAddApplicant={handleAddApplicant}
         />
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -125,7 +150,10 @@ const Index = () => {
           </div>
           
           <div>
-            <ApplicantDetails applicant={selectedApplicant} />
+            <ApplicantDetails
+              applicant={selectedApplicant}
+              onAddApplicant={handleAddApplicant}
+              />
           </div>
         </div>
       </div>

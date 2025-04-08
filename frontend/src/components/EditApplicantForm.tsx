@@ -12,22 +12,35 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { toast } from "sonner";
-import { Applicant } from '@/data/applicants';
+import { Applicant } from "@/data/applicants";
+import { Save } from "lucide-react"; // Import ikon Save
 
+// Schema untuk validasi form
 const formSchema = z.object({
   application_status: z.string({ required_error: "Please select a status." }), // Hanya application_status yang diperlukan
 });
 
+// Props untuk komponen EditApplicantForm
 interface EditApplicantFormProps {
   applicant: Applicant;
-  onSuccess?: () => void;
+  onSuccess?: () => void; // Callback saat form berhasil di-submit
 }
 
-const EditApplicantForm: React.FC<EditApplicantFormProps> = ({ applicant, onSuccess }) => {
+const EditApplicantForm: React.FC<EditApplicantFormProps> = ({
+  applicant,
+  onSuccess,
+}) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Inisialisasi form dengan react-hook-form
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -35,6 +48,7 @@ const EditApplicantForm: React.FC<EditApplicantFormProps> = ({ applicant, onSucc
     },
   });
 
+  // Handler saat form di-submit
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
 
@@ -48,31 +62,35 @@ const EditApplicantForm: React.FC<EditApplicantFormProps> = ({ applicant, onSucc
         application_status: values.application_status, // Gunakan nilai dari form
         phone_number: applicant.phone || "",
         location: applicant.location || "",
-        resume_link: applicant.resume_link || ""
+        resume_link: applicant.resume_link || "",
       };
 
-      const response = await fetch(`http://localhost:3000/applicants/${applicant.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'accept': '*/*'
-        },
-        body: JSON.stringify(payload)
-      });
+      // Kirim data ke API untuk melakukan update
+      const response = await fetch(
+        `http://localhost:3000/applicants/${applicant.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            accept: "*/*",
+          },
+          body: JSON.stringify(payload),
+        }
+      );
 
       if (!response.ok) {
-        throw new Error('Failed to update applicant');
+        throw new Error("Failed to update applicant");
       }
 
-      // Tampilkan pesan sukses
+      // Tampilkan notifikasi sukses
       toast.success("Applicant updated successfully!");
 
-      // Panggil callback jika ada
+      // Panggil callback onSuccess jika ada
       if (onSuccess) {
         onSuccess();
       }
     } catch (error) {
-      console.error('Error updating applicant:', error);
+      console.error("Error updating applicant:", error);
       toast.error("Failed to update applicant. Please try again.");
     } finally {
       setIsSubmitting(false);
@@ -87,7 +105,6 @@ const EditApplicantForm: React.FC<EditApplicantFormProps> = ({ applicant, onSucc
 
       {/* Container dengan scrolling */}
       <div className="px-6 pb-6 overflow-y-auto max-h-[calc(100vh-100px)]">
-
         <h2 className="text-2xl font-bold mb-6">Edit candidate application</h2>
 
         <Form {...form}>
@@ -119,7 +136,7 @@ const EditApplicantForm: React.FC<EditApplicantFormProps> = ({ applicant, onSucc
 
               {/* Field Read-only untuk Email */}
               <FormItem>
-                <FormLabel>Email address</FormLabel>
+                <FormLabel>Email Address</FormLabel>
                 <FormControl>
                   <Input
                     value={applicant.email}
@@ -143,7 +160,7 @@ const EditApplicantForm: React.FC<EditApplicantFormProps> = ({ applicant, onSucc
 
               {/* Field Read-only untuk Experience */}
               <FormItem>
-                <FormLabel>Years of experience</FormLabel>
+                <FormLabel>Years of Experience</FormLabel>
                 <FormControl>
                   <Input
                     value={applicant.experience?.toString() || "Not specified"}
@@ -188,7 +205,10 @@ const EditApplicantForm: React.FC<EditApplicantFormProps> = ({ applicant, onSucc
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Application Status</FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
                       <FormControl>
                         <SelectTrigger className="w-full">
                           <SelectValue placeholder="Select status" />
@@ -197,7 +217,9 @@ const EditApplicantForm: React.FC<EditApplicantFormProps> = ({ applicant, onSucc
                       <SelectContent>
                         <SelectItem value="Pending">Pending</SelectItem>
                         <SelectItem value="In Review">In Review</SelectItem>
-                        <SelectItem value="Interview Scheduled">Interview Scheduled</SelectItem>
+                        <SelectItem value="Interview Scheduled">
+                          Interview Scheduled
+                        </SelectItem>
                         <SelectItem value="Hired">Hired</SelectItem>
                         <SelectItem value="Rejected">Rejected</SelectItem>
                       </SelectContent>
@@ -208,12 +230,14 @@ const EditApplicantForm: React.FC<EditApplicantFormProps> = ({ applicant, onSucc
               />
             </div>
 
+            {/* Tombol Submit */}
             <div className="flex justify-center pt-4">
               <Button
                 type="submit"
                 className="bg-green-700 hover:bg-green-800 text-white px-12"
                 disabled={isSubmitting}
               >
+                <Save className="mr-2 h-4 w-4" /> {/* Ikon Save */}
                 {isSubmitting ? "Saving..." : "Save Changes"}
               </Button>
             </div>
