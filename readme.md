@@ -1,5 +1,5 @@
 # Simple Applicant Tracker React
-
+![alt text](image.png)
 A simple Applicant Tracking System built with React (frontend) and Express.js (backend), designed in a monorepo architecture.
 
 This repository contains 2 main parts:
