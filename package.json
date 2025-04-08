@@ -1,0 +1,28 @@
+{
+  "name": "simple_applicant_tracker_react",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "install-all": "npm-run-all install-backend install-frontend install-root",
+    "install-backend": "cd backend && npm install",
+    "install-frontend": "cd frontend && npm install",
+    "install-root": "echo 'Root install selesai'",
+    "start": "concurrently -n BACKEND,FRONTEND -c green,blue \"npm start --prefix backend\" \"npm start --prefix frontend\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cloud-Dark/simple_applicant_tracker_react.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Cloud-Dark/simple_applicant_tracker_react/issues"
+  },
+  "homepage": "https://github.com/Cloud-Dark/simple_applicant_tracker_react#readme",
+  "description": "",
+  "dependencies": {
+    "concurrently": "^9.1.2",
+    "npm-run-all": "^4.1.5"
+  }
+}
