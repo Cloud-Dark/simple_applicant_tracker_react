@@ -76,6 +76,46 @@ const deleteApplicant = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+const getUniqueLocations = async (req, res) => {
+  try {
+    const locations = await Applicant.findAll({
+      attributes: ['location'],
+      group: ['location'],
+      order: [['location', 'ASC']],
+      raw: true, // ini penting
+    });
+    res.json(locations.map(item => item.location));    
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const getUniqueRoles = async (req, res) => {
+  try {
+    const roles = await Applicant.findAll({
+      attributes: ['applied_roles'],
+      group: ['applied_roles'],
+      order: [['applied_roles', 'ASC']],
+    });
+    res.json(roles.map(item => item.applied_roles));
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const getUniqueStatuses = async (req, res) => {
+  try {
+    const statuses = await Applicant.findAll({
+      attributes: ['application_status'],
+      group: ['application_status'],
+      order: [['application_status', 'ASC']],
+    });
+    res.json(statuses.map(item => item.application_status));
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 
 module.exports = {
   getApplicants,
@@ -83,4 +123,7 @@ module.exports = {
   createApplicant,
   updateApplicant,
   deleteApplicant,
+  getUniqueLocations,
+  getUniqueRoles,
+  getUniqueStatuses,
 };

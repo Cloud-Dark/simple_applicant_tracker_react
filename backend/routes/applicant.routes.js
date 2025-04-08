@@ -6,7 +6,44 @@ const {
   createApplicant,
   updateApplicant,
   deleteApplicant,
+  getUniqueLocations,
+  getUniqueRoles,
+  getUniqueStatuses,
 } = require('../controllers/applicant.controller');
+
+
+/**
+ * @swagger
+ * /applicants/location:
+ *   get:
+ *     summary: Get all unique locations
+ *     responses:
+ *       200:
+ *         description: Successful response
+ */
+router.get('/location', getUniqueLocations);
+
+/**
+ * @swagger
+ * /applicants/role:
+ *   get:
+ *     summary: Get all unique roles
+ *     responses:
+ *       200:
+ *         description: Successful response
+ */
+router.get('/role', getUniqueRoles);
+
+/**
+ * @swagger
+ * /applicants/status:
+ *   get:
+ *     summary: Get all unique application statuses
+ *     responses:
+ *       200:
+ *         description: Successful response
+ */
+router.get('/status', getUniqueStatuses);
 
 /**
  * @swagger
@@ -134,5 +171,4 @@ router.put('/:id', updateApplicant);
  *         description: Applicant not found
  */
 router.delete('/:id', deleteApplicant);
-
 module.exports = router;
