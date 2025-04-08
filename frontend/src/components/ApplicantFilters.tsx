@@ -1,8 +1,7 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { locations, roles, statuses } from '@/data/applicants';
+import { fetchLocations, fetchRoles, fetchStatuses } from '@/data/applicants';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
@@ -30,6 +29,40 @@ const ApplicantFilters: React.FC<ApplicantFiltersProps> = ({
   setSearchQuery
 }) => {
   const [isAddingApplicant, setIsAddingApplicant] = useState(false);
+  const [locations, setLocations] = useState<string[]>([]);
+  const [roles, setRoles] = useState<string[]>([]);
+  const [statuses, setStatuses] = useState<string[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [locationsData, rolesData, statusesData] = await Promise.all([
+          fetchLocations(),
+          fetchRoles(),
+          fetchStatuses()
+        ]);
+        setLocations(locationsData);
+        setRoles(rolesData);
+        setStatuses(statusesData);
+      } catch (err) {
+        setError('Failed to fetch data');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
     <div className="w-full space-y-4">
