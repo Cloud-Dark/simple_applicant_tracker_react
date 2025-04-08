@@ -6,6 +6,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import AddApplicantForm from './AddApplicantForm';
 import { UserPlus } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import EditApplicantForm from './EditApplicantForm'; // Import komponen baru
 
 interface ApplicantDetailsProps {
   applicant: Applicant | null;
@@ -13,7 +14,7 @@ interface ApplicantDetailsProps {
 
 const ApplicantDetails: React.FC<ApplicantDetailsProps> = ({ applicant }) => {
   const [isAddingApplicant, setIsAddingApplicant] = useState(false);
-
+  const [isEditingApplicant, setIsEditingApplicant] = useState(false);
   if (!applicant) {
     return (
       <div className="border rounded-md p-6 bg-white h-full flex flex-col items-center justify-center">
@@ -138,13 +139,23 @@ const ApplicantDetails: React.FC<ApplicantDetailsProps> = ({ applicant }) => {
         >
           Schedule Interview
         </Button>
-        
-        <Button
-          variant="outline"
-          className="border-gray-300 text-gray-700 hover:bg-gray-50"
-        >
-          Review
-        </Button>
+
+        <Sheet open={isEditingApplicant} onOpenChange={setIsEditingApplicant}>
+          <SheetTrigger asChild>
+            <Button
+              variant="outline"
+              className="border-gray-300 text-gray-700 hover:bg-gray-50"
+            >
+              Review
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="right" className="w-full sm:max-w-3xl p-0">
+            <EditApplicantForm
+              applicant={applicant}
+              onSuccess={() => setIsEditingApplicant(false)}
+            />
+          </SheetContent>
+        </Sheet>
       </div>
     </div>
   );
