@@ -1,73 +1,88 @@
-# Welcome to your Lovable project
+# Vite React Shadcn TypeScript Template
 
-## Project info
+Template modern untuk development React + TypeScript menggunakan Vite, Shadcn UI, dan Radix UI.
 
-**URL**: https://lovable.dev/projects/c6eed698-84c4-463b-a4cc-28157896068d
+## Fitur Utama
 
-## How can I edit this code?
+- ⚡ Vite untuk build & dev server super cepat
+- 💅 TailwindCSS + Shadcn UI untuk styling
+- 🎨 Radix UI untuk komponen aksesibilitas tinggi
+- 🧩 React Hook Form + Zod untuk validasi form
+- 🔥 React Query untuk data fetching & state management
+- 📦 Modular component ready
+- ✅ Eslint & Prettier untuk code quality
+- 📊 Recharts untuk visualisasi data
 
-There are several ways of editing your application.
+---
 
-**Use Lovable**
+## Struktur Folder
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/c6eed698-84c4-463b-a4cc-28157896068d) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+src/
+├── components/   # Reusable components
+├── pages/        # Halaman utama
+├── hooks/        # Custom hooks
+├── lib/          # Utility & helper
+├── routes/       # Routing setup
+├── styles/       # Global styling
+└── main.tsx      # Entry point
 ```
 
-**Edit a file directly in GitHub**
+---
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Instalasi
 
-**Use GitHub Codespaces**
+Install dependencies:
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```bash
+pnpm install
+```
 
-## What technologies are used for this project?
+Jalankan development:
 
-This project is built with:
+```bash
+pnpm dev
+```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Build production:
 
-## How can I deploy this project?
+```bash
+pnpm build
+```
 
-Simply open [Lovable](https://lovable.dev/projects/c6eed698-84c4-463b-a4cc-28157896068d) and click on Share -> Publish.
+Preview production build:
 
-## Can I connect a custom domain to my Lovable project?
+```bash
+pnpm preview
+```
 
-Yes it is!
+---
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Tech Stack
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+| Library/Tools           | Fungsi                         |
+|-------------------------|--------------------------------|
+| Vite                    | Build tools                    |
+| React + TypeScript      | Frontend Framework             |
+| Shadcn UI + Radix UI    | UI Components                  |
+| TailwindCSS             | Styling                        |
+| React Hook Form + Zod   | Form & Validation              |
+| React Query             | Data fetching                  |
+| Recharts                | Chart & Graph                  |
+
+---
+
+## Available Scripts
+
+```bash
+pnpm dev       # Start dev server
+pnpm build     # Build production
+pnpm preview   # Preview production build
+pnpm lint      # Run linter
+```
+
+---
+
+## License
+
+MIT License

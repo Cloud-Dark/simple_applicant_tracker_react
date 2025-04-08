@@ -21,18 +21,13 @@ Sistem CRUD API sederhana untuk manajemen data applicant (pelamar kerja) menggun
 
 ## Installasi & Setup Project
 
-### 1. Clone Project
-```bash
-git clone https://github.com/Cloud-Dark/simple_applicant_tracker_react
-cd simple_applicant_tracker_react/backend
-```
 
-### 2. Install Dependency
+### 1. Install Dependency
 ```bash
 npm install
 ```
 
-### 3. Setup .env
+### 2. Setup .env
 Buat file `.env` di root project:
 ```env
 PG_URI=
@@ -46,7 +41,7 @@ PG_SSLMODE=
 
 ---
 
-## 4. Setup Sequelize
+## 3. Setup Sequelize
 ### Generate Database Structure:
 ```bash
 npx sequelize-cli db:migrate
@@ -71,13 +66,13 @@ npm start
 
 ## API Endpoint
 
-| Method | Endpoint | Keterangan |
+| Method | Endpoint  | Keterangan |
 |--------|-----------|------------|
-|GET| /applicants | Get All Applicants (Support Filter)|
-|GET| /applicants/:id | Get Applicant by ID |
-|POST| /applicants | Create Applicant |
-|PUT| /applicants/:id | Update Applicant |
-|DELETE| /applicants/:id | Delete Applicant |
+|GET     | /applicants | Get All Applicants (Support Filter)|
+|GET     | /applicants/:id | Get Applicant by ID |
+|POST    | /applicants | Create Applicant |
+|PUT     | /applicants/:id | Update Applicant |
+|DELETE  | /applicants/:id | Delete Applicant |
 
 ---
 
