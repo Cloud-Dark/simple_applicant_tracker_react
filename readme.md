@@ -97,13 +97,14 @@ npm start
 - [ ] Improve global error handling (Backend & Frontend)
 
 ### Frontend
-- [ ] Make Edit / Review button work smoothly  
+- [x] Make Edit / Review button work smoothly  
     - Current: only updating form data (edit)  
     - Target: after saving → auto refresh/update:
         - Applicant Details View
         - Applicant Table List  
-- [ ] Auto refetch applicant data after update
-- [ ] Add toast notification on successful update
+- [x] Auto refetch applicant data after update
+- [x] Add toast notification on successful update
+- [x] Add responsive feature for mobile view
 - [ ] Add loading state while fetching/updating data
 
 ### Backend
