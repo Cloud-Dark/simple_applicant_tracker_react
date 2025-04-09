@@ -18,27 +18,29 @@ const ApplicantTable: React.FC<ApplicantTableProps> = ({
   setCurrentPage
 }) => {
   const getStatusClass = (status: string) => {
-    switch (status.toLowerCase()) {
-      case "accepted":
-      case "hired":
-      case "ok":
-        return "bg-green-100 text-green-800";
-      case "rejected":
-      case "candidate rejected":
-      case "offer rejected":
-        return "bg-red-100 text-red-800";
-      case "interview":
-      case "interview done":
-      case "interview scheduled":
-        return "bg-blue-100 text-blue-800";
-      case "offer made":
-        return "bg-purple-100 text-purple-800";
-      case "applied":
-      case "pending":
-        return "bg-yellow-100 text-yellow-800";
-      default:
-        return "bg-gray-100 text-gray-800";
+    const statusLower = status.toLowerCase();
+    
+    if (statusLower.includes('accepted') || statusLower === 'hired' || statusLower === 'ok') {
+      return "bg-green-100 text-green-800";
     }
+    
+    if (statusLower.includes('rejected')) {
+      return "bg-red-100 text-red-800";
+    }
+    
+    if (statusLower.includes('interview') || statusLower === 'in review') {
+      return "bg-blue-100 text-blue-800";
+    }
+    
+    if (statusLower === 'new') {
+      return "bg-purple-100 text-purple-800";
+    }
+    
+    if (statusLower === 'pending' || statusLower === 'applied') {
+      return "bg-yellow-100 text-yellow-800";
+    }
+    
+    return "bg-gray-100 text-gray-800";
   };
 
   if (applicants.length === 0) {
@@ -55,10 +57,10 @@ const ApplicantTable: React.FC<ApplicantTableProps> = ({
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>Email</TableHead>
-              <TableHead>Role</TableHead>
-              <TableHead>Status</TableHead>
+              <TableHead className="w-1/3">Name</TableHead>
+              <TableHead className="w-1/3">Email</TableHead>
+              <TableHead className="w-1/6">Role</TableHead>
+              <TableHead className="w-1/6">Status</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -68,13 +70,15 @@ const ApplicantTable: React.FC<ApplicantTableProps> = ({
                 onClick={() => setSelectedApplicantId(applicant.id)}
                 className={`cursor-pointer hover:bg-gray-50 ${selectedApplicantId === applicant.id ? 'bg-green-50' : ''}`}
               >
-                <TableCell className="font-medium">{applicant.name}</TableCell>
-                <TableCell>{applicant.email}</TableCell>
-                <TableCell>{applicant.role}</TableCell>
+                <TableCell className="font-medium truncate max-w-[200px]">{applicant.name}</TableCell>
+                <TableCell className="truncate max-w-[200px]">{applicant.email}</TableCell>
+                <TableCell className="truncate max-w-[150px]">{applicant.role}</TableCell>
                 <TableCell>
-                  <span className={`px-2 py-1 text-xs rounded-full ${getStatusClass(applicant.status)}`}>
-                    {applicant.status}
-                  </span>
+                  <div className="flex justify-center">
+                    <span className={`px-3 py-1 text-xs rounded-full whitespace-nowrap ${getStatusClass(applicant.status)}`}>
+                      {applicant.status}
+                    </span>
+                  </div>
                 </TableCell>
               </TableRow>
             ))}
