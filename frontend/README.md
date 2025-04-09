@@ -1,88 +1,83 @@
 # Vite React Shadcn TypeScript Template
 
-Template modern untuk development React + TypeScript menggunakan Vite, Shadcn UI, dan Radix UI.
+A modern template for React + TypeScript development using Vite, Shadcn UI, and Radix UI.
 
-## Fitur Utama
+## Key Features
 
-- ⚡ Vite untuk build & dev server super cepat
-- 💅 TailwindCSS + Shadcn UI untuk styling
-- 🎨 Radix UI untuk komponen aksesibilitas tinggi
-- 🧩 React Hook Form + Zod untuk validasi form
-- 🔥 React Query untuk data fetching & state management
-- 📦 Modular component ready
-- ✅ Eslint & Prettier untuk code quality
-- 📊 Recharts untuk visualisasi data
+- ⚡ Vite for super-fast build & dev server
+- 💅 TailwindCSS + Shadcn UI for styling
+- 🎨 Radix UI for highly accessible components
+- 🧩 React Hook Form + Zod for form validation
+- 🔥 React Query for data fetching & state management
+- 📦 Modular & reusable components ready
+- ✅ Eslint & Prettier for code quality
+- 📊 Recharts for data visualization
 
 ---
 
-## Struktur Folder
+## Folder Structure
 
 ```
 src/
 ├── components/   # Reusable components
-├── pages/        # Halaman utama
+├── pages/        # Main pages
 ├── hooks/        # Custom hooks
-├── lib/          # Utility & helper
+├── lib/          # Utilities & helpers
 ├── routes/       # Routing setup
-├── styles/       # Global styling
+├── styles/       # Global styles
 └── main.tsx      # Entry point
 ```
 
 ---
 
-## Instalasi
+## Installation
 
 Install dependencies:
 
 ```bash
-pnpm install
+npm install
 ```
 
-Jalankan development:
+Start development server:
 
 ```bash
-pnpm dev
+npm dev
 ```
 
-Build production:
+Build for production:
 
 ```bash
-pnpm build
+npm build
 ```
 
 Preview production build:
 
 ```bash
-pnpm preview
+npm preview
 ```
 
 ---
 
 ## Tech Stack
 
-| Library/Tools           | Fungsi                         |
+| Library/Tools           | Purpose                         |
 |-------------------------|--------------------------------|
-| Vite                    | Build tools                    |
-| React + TypeScript      | Frontend Framework             |
-| Shadcn UI + Radix UI    | UI Components                  |
+| Vite                    | Build tool                     |
+| React + TypeScript      | Frontend framework             |
+| Shadcn UI + Radix UI    | UI components                  |
 | TailwindCSS             | Styling                        |
-| React Hook Form + Zod   | Form & Validation              |
+| React Hook Form + Zod   | Form & validation              |
 | React Query             | Data fetching                  |
-| Recharts                | Chart & Graph                  |
+| Recharts                | Charts & graphs                |
 
 ---
 
 ## Available Scripts
 
 ```bash
-pnpm dev       # Start dev server
-pnpm build     # Build production
-pnpm preview   # Preview production build
-pnpm lint      # Run linter
+npm dev       # Start development server
+npm build     # Build for production
+npm preview   # Preview production build
+npm lint      # Run linter
 ```
 
----
-
-## License
-
-MIT License

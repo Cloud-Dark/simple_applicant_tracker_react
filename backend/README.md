@@ -1,34 +1,34 @@
-
-## README.md
-
 # Simple Applicant Tracker API
 
-Sistem CRUD API sederhana untuk manajemen data applicant (pelamar kerja) menggunakan:
-- Node.js
-- Express
-- Sequelize ORM
-- PostgreSQL
-- Swagger API Documentation
+A simple CRUD API system for managing applicant data using:
+- Node.js  
+- Express  
+- Sequelize ORM  
+- PostgreSQL  
+- Swagger API Documentation  
 
 ---
 
-## Requirement
-- Node.js >= 16.x
-- PostgreSQL Database
-- NPM
+## Requirements
+
+- Node.js >= 16.x  
+- PostgreSQL Database  
+- NPM  
 
 ---
 
-## Installasi & Setup Project
+## Installation & Project Setup
 
+### 1. Install Dependencies
 
-### 1. Install Dependency
 ```bash
 npm install
 ```
 
 ### 2. Setup .env
-Buat file `.env` di root project:
+
+Create a `.env` file in the root directory:
+
 ```env
 PG_URI=
 PG_DB=
@@ -42,48 +42,56 @@ PG_SSLMODE=
 ---
 
 ## 3. Setup Sequelize
+
 ### Generate Database Structure:
+
 ```bash
 npx sequelize-cli db:migrate
 ```
 
-### Insert Dummy Data (Minimal 10 Applicant)
+### Insert Dummy Data (Minimum 10 Applicants):
+
 ```bash
 npx sequelize-cli db:seed:all
 ```
+
 or
+
 ```bash
 npx test-insert.js
 ```
+
 ---
 
-## 5. Running API
+## 4. Run the API
+
 ```bash
 npm start
 ```
 
 ---
 
-## API Endpoint
+## API Endpoints
 
-| Method | Endpoint  | Keterangan |
-|--------|-----------|------------|
-|GET     | /applicants | Get All Applicants (Support Filter)|
-|GET     | /applicants/:id | Get Applicant by ID |
-|POST    | /applicants | Create Applicant |
-|PUT     | /applicants/:id | Update Applicant |
-|DELETE  | /applicants/:id | Delete Applicant |
+| Method | Endpoint           | Description                          |
+|--------|--------------------|--------------------------------------|
+| GET    | /applicants        | Get all applicants (with filtering)  |
+| GET    | /applicants/:id    | Get applicant by ID                  |
+| POST   | /applicants        | Create a new applicant               |
+| PUT    | /applicants/:id    | Update applicant data                |
+| DELETE | /applicants/:id    | Delete applicant                     |
 
 ---
 
-## Filter Params (GET /applicants)
-| Query | Example | Keterangan |
-|-------|---------|------------|
-|location| ?location=Jakarta|Filter by location|
-|role| ?role=Backend|Filter by applied role|
-|status| ?status=Pending|Filter by application status|
+## Filter Parameters (GET /applicants)
 
-Contoh:
+| Query    | Example                          | Description                  |
+|----------|----------------------------------|------------------------------|
+| location | ?location=Jakarta               | Filter by location           |
+| role     | ?role=Backend                   | Filter by applied role       |
+| status   | ?status=Pending                 | Filter by application status |
+
+Example:
 ```
 GET /applicants?location=Jakarta&role=Backend&status=Pending
 ```
@@ -91,7 +99,9 @@ GET /applicants?location=Jakarta&role=Backend&status=Pending
 ---
 
 ## API Documentation (Swagger)
-Saat project jalan:
+
+When the project is running:
+
 ```
 http://localhost:3000/api-docs
 ```
@@ -99,28 +109,32 @@ http://localhost:3000/api-docs
 ---
 
 ## Folder Structure
+
 ```
 .
-├── config        (sequelize config)
-├── controllers   (logic API)
-├── migrations    (db migration)
-├── models        (sequelize models)
-├── routes        (API routing)
-├── seeders       (dummy data)
-├── .env          (env config)
-├── app.js        (main app express)
-└── swagger.js    (swagger setup)
+├── config        (Sequelize configuration)
+├── controllers   (API logic)
+├── migrations    (DB migrations)
+├── models        (Sequelize models)
+├── routes        (API routes)
+├── seeders       (Dummy data)
+├── .env          (Environment config)
+├── app.js        (Main Express app)
+└── swagger.js    (Swagger setup)
 ```
 
 ---
 
-## Generate Swagger Otomatis
-Install:
+## Generate Swagger Automatically
+
+Install the required packages:
+
 ```bash
 npm i swagger-jsdoc swagger-ui-express
 ```
 
-Setup di `app.js`:
+Setup in `app.js`:
+
 ```js
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
@@ -141,7 +155,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 ---
 
-## Selesai 🎉
-Sekarang API siap digunakan!
+## Done 🎉
 
----
+The API is now ready to use!
+
