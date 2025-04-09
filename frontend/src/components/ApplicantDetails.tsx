@@ -6,6 +6,7 @@ import AddApplicantForm from './AddApplicantForm';
 import { UserPlus } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import EditApplicantForm from './EditApplicantForm'; // Import komponen baru
+import { DialogTitle } from '@/components/ui/dialog'
 
 interface ApplicantDetailsProps {
   applicant: Applicant | null;
@@ -14,7 +15,11 @@ interface ApplicantDetailsProps {
 
 }
 
-const ApplicantDetails: React.FC<ApplicantDetailsProps> = ({ applicant, onAddApplicant }) => {
+const ApplicantDetails: React.FC<ApplicantDetailsProps> = ({
+  applicant,
+  onAddApplicant,
+  onUpdateApplicant, 
+ }) => {
   const [isAddingApplicant, setIsAddingApplicant] = useState(false);
   const [isEditingApplicant, setIsEditingApplicant] = useState(false);
 
@@ -30,10 +35,11 @@ const ApplicantDetails: React.FC<ApplicantDetailsProps> = ({ applicant, onAddApp
             </Button>
           </SheetTrigger>
           <SheetContent side="right" className="w-full sm:max-w-3xl p-0">
-            <AddApplicantForm 
-              onAddApplicant={onAddApplicant} // Teruskan prop ini
-              onSuccess={() => setIsAddingApplicant(false)} 
-            />
+           <DialogTitle className="sr-only">Edit Applicant</DialogTitle>
+              <AddApplicantForm 
+                onAddApplicant={onAddApplicant} // Teruskan prop ini
+                onSuccess={() => setIsAddingApplicant(false)} 
+              />
           </SheetContent>
         </Sheet>
       </div>
@@ -152,9 +158,13 @@ const ApplicantDetails: React.FC<ApplicantDetailsProps> = ({ applicant, onAddApp
             </Button>
           </SheetTrigger>
           <SheetContent side="right" className="w-full sm:max-w-3xl p-0">
+          <DialogTitle className="sr-only">Review Applicant</DialogTitle>
             <EditApplicantForm
               applicant={applicant}
-              onSuccess={() => setIsEditingApplicant(false)}
+              onSuccess={async () => {
+                setIsEditingApplicant(false);
+                await onUpdateApplicant();
+              }}
             />
           </SheetContent>
         </Sheet>

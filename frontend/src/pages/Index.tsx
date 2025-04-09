@@ -153,6 +153,7 @@ const Index = () => {
             <ApplicantDetails
               applicant={selectedApplicant}
               onAddApplicant={handleAddApplicant}
+              onUpdateApplicant={fetchApplicants}
               />
           </div>
         </div>

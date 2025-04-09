@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import AddApplicantForm from './AddApplicantForm';
+import { DialogTitle } from '@/components/ui/dialog'
 
 interface ApplicantFiltersProps {
   selectedLocation: string;
@@ -77,6 +78,7 @@ const ApplicantFilters: React.FC<ApplicantFiltersProps> = ({
             </Button>
           </SheetTrigger>
           <SheetContent side="right" className="w-full sm:max-w-3xl p-0">
+            <DialogTitle className="sr-only">Add Applicant</DialogTitle>
             <AddApplicantForm 
               onAddApplicant={onAddApplicant} // Teruskan prop ini
               onSuccess={() => setIsAddingApplicant(false)} 
