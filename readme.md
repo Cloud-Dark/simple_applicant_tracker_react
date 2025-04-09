@@ -94,7 +94,7 @@ npm start
 
 | Frontend | Backend |
 |---------|---------|
-| ![Frontend Demo](video/frontend.webm) | ![Backend Demo](video/backend.webm) |
+| ![Frontend Demo](video/frontend.gif) | ![Backend Demo](video/backend.gif) |
 
 ---
 
