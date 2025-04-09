@@ -100,7 +100,7 @@ const EditApplicantForm: React.FC<EditApplicantFormProps> = ({
   return (
     <div className="w-full h-full">
       <div className="bg-green-700 p-4 mb-6">
-        <h1 className="text-white text-xl font-bold">Applicant Tracker</h1>
+        <h1 className="text-white text-xl font-bold">Review Candidate</h1>
       </div>
 
       {/* Container dengan scrolling */}
