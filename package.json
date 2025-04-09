@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "install-all": "npm-run-all install-backend install-frontend install-root",
+    "install-all": "npm install && npx npm-run-all install-backend install-frontend install-root",
     "install-backend": "cd backend && npm install",
     "install-frontend": "cd frontend && npm install",
     "install-root": "echo 'Root install selesai'",
