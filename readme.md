@@ -89,6 +89,15 @@ npm start
 
 ---
 
+
+## 📽️ Demo Previews
+
+| Frontend | Backend |
+|---------|---------|
+| ![Frontend Demo](video/frontend.webm) | ![Backend Demo](video/backend.webm) |
+
+---
+
 ## TODO List
 
 ### Global (Root)
