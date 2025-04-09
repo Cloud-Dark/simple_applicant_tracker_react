@@ -93,7 +93,7 @@ const ApplicantFilters: React.FC<ApplicantFiltersProps> = ({
               <SelectValue placeholder="Select option" />
             </SelectTrigger>
             <SelectContent>
-              {locations.map((location) => (
+              {locations.filter(Boolean).map((location) => (
                 <SelectItem key={location} value={location}>
                   {location}
                 </SelectItem>
@@ -109,11 +109,11 @@ const ApplicantFilters: React.FC<ApplicantFiltersProps> = ({
               <SelectValue placeholder="Select option" />
             </SelectTrigger>
             <SelectContent>
-              {roles.map((role) => (
-                <SelectItem key={role} value={role}>
-                  {role}
-                </SelectItem>
-              ))}
+            {roles.filter(Boolean).map((role) => (
+              <SelectItem key={role} value={role}>
+                {role}
+              </SelectItem>
+            ))}
             </SelectContent>
           </Select>
         </div>
@@ -125,11 +125,11 @@ const ApplicantFilters: React.FC<ApplicantFiltersProps> = ({
               <SelectValue placeholder="Select option" />
             </SelectTrigger>
             <SelectContent>
-              {statuses.map((status) => (
-                <SelectItem key={status} value={status}>
-                  {status}
-                </SelectItem>
-              ))}
+            {statuses.filter(Boolean).map((status) => (
+              <SelectItem key={status} value={status}>
+                {status}
+              </SelectItem>
+            ))}
             </SelectContent>
           </Select>
         </div>
