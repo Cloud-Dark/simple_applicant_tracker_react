@@ -17,8 +17,6 @@ const ApplicantTable: React.FC<ApplicantTableProps> = ({
   currentPage,
   setCurrentPage
 }) => {
-  console.log("Applicants in table:", applicants); // Debugging data
-
   const getStatusClass = (status: string) => {
     switch (status.toLowerCase()) {
       case "accepted":
